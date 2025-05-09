@@ -11,7 +11,9 @@ public class ProductPage extends PageBase {
         super(driver);
     }
 
+    /*Product Page Locators*/
     By dropDown = By.className("product_sort_container");
+    By shoppingCart = By.className("shopping_cart_link");
 
     private Select sortDropDown;
 
@@ -34,7 +36,7 @@ public class ProductPage extends PageBase {
     };
 
 
-    public void AddProductToCartById(int productId){
+    public void AddProductToCartById(int productId) {
         By productById = By.id("add-to-cart-" + productsName[productId]);
         ClickButton(productById);
     }
@@ -55,5 +57,11 @@ public class ProductPage extends PageBase {
         sortDropDown = new Select(driver.findElement(dropDown));
         sortDropDown.selectByValue(sortPrice[sortId]);
     }
+
+    public void NavigateToCartPage() {
+        WaitForElementToBeClickable(shoppingCart);
+        ClickButton(shoppingCart);
+    }
+
 
 }
