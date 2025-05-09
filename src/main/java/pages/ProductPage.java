@@ -28,4 +28,5 @@ public class ProductPage extends PageBase {
         By productById = By.id("remove-" + productsName[productId]);
         ClickButton(productById);
     }
+
 }
