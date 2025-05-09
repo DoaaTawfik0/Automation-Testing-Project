@@ -3,12 +3,17 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 
 public class ProductPage extends PageBase {
 
     public ProductPage(WebDriver driver) {
         super(driver);
     }
+
+    By dropDown = By.className("product_sort_container");
+
+    private Select sortDropDown;
 
     final String[] productsName = new String[]{
             "sauce-labs-backpack",
@@ -19,14 +24,36 @@ public class ProductPage extends PageBase {
             "test.allthethings()-t-shirt-(red)"
     };
 
-    public void AddProductToCartById(int productId) throws InterruptedException {
+    final String[] sortName = new String[]{
+            "az",
+            "za"
+    };
+    final String[] sortPrice = new String[]{
+            "lohi",
+            "hilo"
+    };
+
+
+    public void AddProductToCartById(int productId){
         By productById = By.id("add-to-cart-" + productsName[productId]);
         ClickButton(productById);
     }
 
-    public void RemoveProductFromCartById(int productId) throws InterruptedException {
+    public void RemoveProductFromCartById(int productId) {
         By productById = By.id("remove-" + productsName[productId]);
         ClickButton(productById);
+    }
+
+    public void SortProductsBasedOnName(int sortId) {
+        WaitForElementToBeClickable(dropDown);
+        sortDropDown = new Select(driver.findElement(dropDown));
+        sortDropDown.selectByValue(sortName[sortId]);
+    }
+
+    public void SortProductsBasedOnPrice(int sortId) {
+        WaitForElementToBeClickable(dropDown);
+        sortDropDown = new Select(driver.findElement(dropDown));
+        sortDropDown.selectByValue(sortPrice[sortId]);
     }
 
 }
