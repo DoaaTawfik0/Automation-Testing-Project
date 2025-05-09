@@ -15,15 +15,16 @@ public class LoginPage extends PageBase {
     By loginButton = By.id("login-button");
     By errorMessage = By.cssSelector("[data-test='error']");
 
-    public void FillUserName(String username) {
+
+    private void FillUserName(String username) {
         FillData(userName, username);
     }
 
-    public void FillPassword(String password) {
+    private void FillPassword(String password) {
         FillData(passwordLocator, password);
     }
 
-    public void ClickLoginButton() {
+    private void ClickLoginButton() {
         ClickButton(loginButton);
     }
 
@@ -31,5 +32,12 @@ public class LoginPage extends PageBase {
         return ReadData(errorMessage);
     }
 
+
+    public void Login_Sauce_Website(String userName, String password)
+    {
+        FillUserName(userName);
+        FillPassword(password);
+        ClickLoginButton();
+    }
 
 }
