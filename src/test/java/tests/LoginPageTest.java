@@ -23,9 +23,8 @@ public class LoginPageTest extends TestBase {
 
     @Test
     public void TestLoginWithValidUserAndPassword() throws InterruptedException {
-        login.FillUserName("standard_user");
-        login.FillPassword("secret_sauce");
-        login.ClickLoginButton();
+
+        login.Login_Sauce_Website("standard_user","secret_sauce");
         Thread.sleep(2000);
 
         String Weblink = login.findCurrentURL(driver);
@@ -35,9 +34,8 @@ public class LoginPageTest extends TestBase {
 
     @Test
     public void TestLoginWithValidUrlAfterLoginFailure() throws InterruptedException {
-        login.FillUserName("standard_user");
-        login.FillPassword("secret_sauc"); // Wrong password
-        login.ClickLoginButton();
+        login.Login_Sauce_Website("standard_user","secret_sauc");
+
         Thread.sleep(2000);
         String Weblink = login.findCurrentURL(driver);
         Assert.assertEquals(Weblink, "https://www.saucedemo.com/",
@@ -47,9 +45,8 @@ public class LoginPageTest extends TestBase {
     @Test
     public void TestLoginValidErrorMessageAfterLoginFailure() throws InterruptedException {
         String expectedMessage = "Epic sadface: Username and password do not match any user in this service";
-        login.FillUserName("standard_user");
-        login.FillPassword("secret_sauc"); // Wrong password
-        login.ClickLoginButton();
+
+        login.Login_Sauce_Website("standard_user","secret_sauc");
         Thread.sleep(2000);
 
         String errorMessage = login.ReadLoginErrorMessage();
@@ -59,9 +56,7 @@ public class LoginPageTest extends TestBase {
 
     @Test
     public void TestLoginWithValidUserInvalidPassword() throws InterruptedException {
-        login.FillUserName("standard_user");
-        login.FillPassword("secret_saucee"); // Wrong password
-        login.ClickLoginButton();
+        login.Login_Sauce_Website("standard_user","secret_saucee");
         Thread.sleep(2000);
 
         String errorMessage = login.ReadLoginErrorMessage();
@@ -72,9 +67,7 @@ public class LoginPageTest extends TestBase {
 
     @Test
     public void TestLoginWithInvalidUserValidPassword() throws InterruptedException {
-        login.FillUserName("standard"); // Invalid user
-        login.FillPassword("secret_sauce");
-        login.ClickLoginButton();
+        login.Login_Sauce_Website("standard","secret_sauce");
         Thread.sleep(2000);
 
         String errorMessage = login.ReadLoginErrorMessage();
@@ -85,9 +78,8 @@ public class LoginPageTest extends TestBase {
 
     @Test
     public void TestLoginWithLockedOutUser() throws InterruptedException {
-        login.FillUserName("locked_out_user");
-        login.FillPassword("secret_sauce");
-        login.ClickLoginButton();
+        login.Login_Sauce_Website("locked_out_user","secret_sauce");
+
         Thread.sleep(2000);
 
         String errorMessage = login.ReadLoginErrorMessage();
@@ -98,8 +90,7 @@ public class LoginPageTest extends TestBase {
 
     @Test
     public void TestLoginWithoutUser() throws InterruptedException {
-        login.FillPassword("secret_sauce");
-        login.ClickLoginButton();
+        login.Login_Sauce_Website("","secret_sauce");
         Thread.sleep(2000);
 
         String errorMessage = login.ReadLoginErrorMessage();
@@ -110,8 +101,7 @@ public class LoginPageTest extends TestBase {
 
     @Test
     public void TestLoginWithoutPassword() throws InterruptedException {
-        login.FillUserName("standard_user");
-        login.ClickLoginButton();
+        login.Login_Sauce_Website("standard_user","");
         Thread.sleep(2000);
 
         String errorMessage = login.ReadLoginErrorMessage();
@@ -122,12 +112,9 @@ public class LoginPageTest extends TestBase {
 
     @Test
     public void TestLoginWithPerformance_glitch_user() {
-        login.FillUserName("performance_glitch_user");
-        login.FillPassword("secret_sauce");
-
         long startTime = System.currentTimeMillis();
 
-        login.ClickLoginButton();
+        login.Login_Sauce_Website("performance_glitch_user","secret_sauce");
 
         login.WaitForUrl("inventory");
         long endTime = System.currentTimeMillis();
