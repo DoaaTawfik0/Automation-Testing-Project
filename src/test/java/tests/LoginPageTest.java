@@ -1,17 +1,13 @@
 package tests;
 
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-
 import pages.LoginPage;
 
-
 public class LoginPageTest extends TestBase {
-
     private static final Logger log = LoggerFactory.getLogger(LoginPageTest.class);
     LoginPage login;
 
@@ -20,44 +16,42 @@ public class LoginPageTest extends TestBase {
         login = new LoginPage(driver);
     }
 
-
     @Test
-    public void TestLoginWithValidUserAndPassword() throws InterruptedException {
+    public void TestLoginWithValidUserAndPassword() {
+        login.Login_Sauce_Website("standard_user", "secret_sauce");
 
-        login.Login_Sauce_Website("standard_user","secret_sauce");
-        Thread.sleep(2000);
-
+        // Wait for inventory page to load
+        login.waitForInventoryPage();
         String Weblink = login.findCurrentURL(driver);
         Assert.assertEquals(Weblink, "https://www.saucedemo.com/inventory.html",
-                "User should stay on login page after failed login");
+                "User should be redirected to inventory page after successful login");
     }
 
     @Test
-    public void TestLoginWithValidUrlAfterLoginFailure() throws InterruptedException {
-        login.Login_Sauce_Website("standard_user","secret_sauc");
+    public void TestLoginWithValidUrlAfterLoginFailure() {
+        login.Login_Sauce_Website("standard_user", "secret_sauc");
 
-        Thread.sleep(2000);
+        // Wait for URL to remain on login page
+        login.waitForLoginPage();
         String Weblink = login.findCurrentURL(driver);
         Assert.assertEquals(Weblink, "https://www.saucedemo.com/",
                 "User should stay on login page after failed login");
     }
 
     @Test
-    public void TestLoginValidErrorMessageAfterLoginFailure() throws InterruptedException {
+    public void TestLoginValidErrorMessageAfterLoginFailure() {
         String expectedMessage = "Epic sadface: Username and password do not match any user in this service";
+        login.Login_Sauce_Website("standard_user", "secret_sauc");
 
-        login.Login_Sauce_Website("standard_user","secret_sauc");
-        Thread.sleep(2000);
-
+        // Wait for error message to be visible
         String errorMessage = login.ReadLoginErrorMessage();
         Assert.assertEquals(errorMessage, expectedMessage,
                 "Error message did not match for invalid password");
     }
 
     @Test
-    public void TestLoginWithValidUserInvalidPassword() throws InterruptedException {
-        login.Login_Sauce_Website("standard_user","secret_saucee");
-        Thread.sleep(2000);
+    public void TestLoginWithValidUserInvalidPassword() {
+        login.Login_Sauce_Website("standard_user", "secret_saucee");
 
         String errorMessage = login.ReadLoginErrorMessage();
         Assert.assertEquals(errorMessage,
@@ -66,9 +60,8 @@ public class LoginPageTest extends TestBase {
     }
 
     @Test
-    public void TestLoginWithInvalidUserValidPassword() throws InterruptedException {
-        login.Login_Sauce_Website("standard","secret_sauce");
-        Thread.sleep(2000);
+    public void TestLoginWithInvalidUserValidPassword() {
+        login.Login_Sauce_Website("standard", "secret_sauce");
 
         String errorMessage = login.ReadLoginErrorMessage();
         Assert.assertEquals(errorMessage,
@@ -77,10 +70,8 @@ public class LoginPageTest extends TestBase {
     }
 
     @Test
-    public void TestLoginWithLockedOutUser() throws InterruptedException {
-        login.Login_Sauce_Website("locked_out_user","secret_sauce");
-
-        Thread.sleep(2000);
+    public void TestLoginWithLockedOutUser() {
+        login.Login_Sauce_Website("locked_out_user", "secret_sauce");
 
         String errorMessage = login.ReadLoginErrorMessage();
         Assert.assertEquals(errorMessage,
@@ -89,9 +80,8 @@ public class LoginPageTest extends TestBase {
     }
 
     @Test
-    public void TestLoginWithoutUser() throws InterruptedException {
-        login.Login_Sauce_Website("","secret_sauce");
-        Thread.sleep(2000);
+    public void TestLoginWithoutUser() {
+        login.Login_Sauce_Website("", "secret_sauce");
 
         String errorMessage = login.ReadLoginErrorMessage();
         Assert.assertEquals(errorMessage,
@@ -100,9 +90,8 @@ public class LoginPageTest extends TestBase {
     }
 
     @Test
-    public void TestLoginWithoutPassword() throws InterruptedException {
-        login.Login_Sauce_Website("standard_user","");
-        Thread.sleep(2000);
+    public void TestLoginWithoutPassword() {
+        login.Login_Sauce_Website("standard_user", "");
 
         String errorMessage = login.ReadLoginErrorMessage();
         Assert.assertEquals(errorMessage,
@@ -113,19 +102,14 @@ public class LoginPageTest extends TestBase {
     @Test
     public void TestLoginWithPerformance_glitch_user() {
         long startTime = System.currentTimeMillis();
+        login.Login_Sauce_Website("performance_glitch_user", "secret_sauce");
 
-        login.Login_Sauce_Website("performance_glitch_user","secret_sauce");
-
-        login.WaitForUrl("inventory");
+        login.waitForInventoryPage();
         long endTime = System.currentTimeMillis();
-
         long elapsedTime = endTime - startTime;
 
-        if (elapsedTime > 5000) {
-            throw new AssertionError("Navigation to home page took too long: " + elapsedTime + " ms");
-        } else {
-            System.out.println("Navigation completed in acceptable time: " + elapsedTime + " ms");
-        }
+        Assert.assertTrue(elapsedTime <= 5000,
+                "Navigation to home page took too long: " + elapsedTime + " ms");
+        log.info("Navigation completed in acceptable time: {} ms", elapsedTime);
     }
-
 }
