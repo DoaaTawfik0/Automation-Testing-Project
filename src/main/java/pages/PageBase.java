@@ -1,5 +1,6 @@
 package pages;
 
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -23,7 +24,6 @@ public class PageBase {
     public void WaitForElementToBeVisible(By locator) {
         WebDriverWait wait = new WebDriverWait(driver, Wait);
         wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
-
     }
 
     public void WaitForElementToBeClickable(By locator) {
