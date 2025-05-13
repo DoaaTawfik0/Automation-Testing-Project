@@ -26,15 +26,16 @@ public class ProductPageTest extends TestBase {
     private WebDriverWait wait;
 
     @BeforeMethod
-    public void SetLogin() {
+    public void SetUp() {
         login = new LoginPage(driver);
         product = new ProductPage(driver);
         wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+
+        login.Login_Sauce_Website("standard_user", "secret_sauce");
     }
 
     @Test
     public void TestAddProductToCart() {
-        login.Login_Sauce_Website("standard_user", "secret_sauce");
         product.AddProductToCartById(0);
         WebElement removeButton = wait.until(ExpectedConditions.visibilityOfElementLocated(product.removeButton));
         Assert.assertTrue(removeButton.isDisplayed(), "Remove button should be visible after adding to cart");
@@ -42,7 +43,6 @@ public class ProductPageTest extends TestBase {
 
     @Test
     public void TestRemoveProductFromCart() {
-        login.Login_Sauce_Website("standard_user", "secret_sauce");
         product.AddProductToCartById(0);
 
         product.RemoveProductFromCartById(0);
@@ -53,7 +53,6 @@ public class ProductPageTest extends TestBase {
 
     @Test
     public void TestSortProductsByNameAZ() {
-        login.Login_Sauce_Website("standard_user", "secret_sauce");
         wait.until(ExpectedConditions.visibilityOfElementLocated(product.productDiv));
 
         product.SortProductsBasedOnName(0);
@@ -69,7 +68,6 @@ public class ProductPageTest extends TestBase {
 
     @Test
     public void TestSortProductsByNameZA() {
-        login.Login_Sauce_Website("standard_user", "secret_sauce");
         wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(product.productDiv));
 
         product.SortProductsBasedOnName(1);
@@ -85,7 +83,6 @@ public class ProductPageTest extends TestBase {
 
     @Test
     public void TestRemoveFromCartPage() {
-        login.Login_Sauce_Website("standard_user", "secret_sauce");
         wait.until(ExpectedConditions.visibilityOfElementLocated(product.productDiv));
 
         product.AddProductToCartById(0);
@@ -102,7 +99,6 @@ public class ProductPageTest extends TestBase {
 
     @Test
     public void TestMenuButtonNavigation() {
-        login.Login_Sauce_Website("standard_user", "secret_sauce");
         wait.until(ExpectedConditions.visibilityOfElementLocated(product.productDiv));
 
         WebElement menuButton = wait.until(ExpectedConditions.elementToBeClickable(product.menuButton));
@@ -114,21 +110,18 @@ public class ProductPageTest extends TestBase {
 
     @Test
     public void TestProductImageIsVisible() {
-        login.Login_Sauce_Website("standard_user", "secret_sauce");
         WebElement image = wait.until(ExpectedConditions.visibilityOfElementLocated(product.productImage));
         Assert.assertTrue(image.isDisplayed(), "Product image should be visible");
     }
 
     @Test
     public void TestProductTitleIsVisible() {
-        login.Login_Sauce_Website("standard_user", "secret_sauce");
         WebElement title = wait.until(ExpectedConditions.visibilityOfElementLocated(product.productTitle));
         Assert.assertTrue(title.isDisplayed(), "Product title should be visible");
     }
 
     @Test
     public void TestSortByPriceLowToHigh() {
-        login.Login_Sauce_Website("standard_user", "secret_sauce");
         wait.until(ExpectedConditions.visibilityOfElementLocated(product.productDiv));
 
         product.SortProductsBasedOnPrice(0);
@@ -146,7 +139,6 @@ public class ProductPageTest extends TestBase {
 
     @Test
     public void TestSortByPriceHighToLow() {
-        login.Login_Sauce_Website("standard_user", "secret_sauce");
         wait.until(ExpectedConditions.visibilityOfElementLocated(product.productDiv));
 
         product.SortProductsBasedOnPrice(1);
