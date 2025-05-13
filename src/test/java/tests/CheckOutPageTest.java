@@ -29,7 +29,7 @@ public class CheckOutPageTest extends TestBase {
         /*Login for the website*/
         login.Login_Sauce_Website("error_user","secret_sauce");
         /*Adding 2 products before each test case*/
-        product.AddTwoProductsAndGoToCheckout();
+        product.AddTwoProductsToCart();
 
         /*Navigation to Cart Page*/
         product.NavigateToCartPage();

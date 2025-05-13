@@ -13,6 +13,7 @@ public class ProductPage extends PageBase {
         super(driver);
     }
 
+
     /*Product Page Locators*/
     public By removeButton = By.id("remove-sauce-labs-backpack");
     public By addButton = By.id("add-to-cart-sauce-labs-backpack");
@@ -45,6 +46,11 @@ public class ProductPage extends PageBase {
             "lohi",
             "hilo"
     };
+
+    /**
+     * Navigate to the product page
+     */
+    private static final String BASE_URL = "https://www.saucedemo.com/";
 
 
     public void AddProductToCartById(int productId) {
@@ -110,10 +116,6 @@ public class ProductPage extends PageBase {
         }
     }
 
-    /**
-     * Navigate to the product page
-     */
-    private static final String BASE_URL = "https://www.saucedemo.com/";
 
     /**
      * Navigate to the product page
@@ -127,6 +129,11 @@ public class ProductPage extends PageBase {
 
         // Wait for the page to load
         WaitForUrl(productsPageUrl);
+    }
+
+    public void AddTwoProductsAndGoToCheckout() {
+        AddProductToCartById(0);
+        AddProductToCartById(1);
     }
 
 
