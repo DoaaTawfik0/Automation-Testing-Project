@@ -14,6 +14,15 @@ public class ProductPage extends PageBase {
     }
 
     /*Product Page Locators*/
+    public By removeButton = By.id("remove-sauce-labs-backpack");
+    public By addButton = By.id("add-to-cart-sauce-labs-backpack");
+    public By productName = By.className("inventory_item_name");
+    public By productPrice = By.className("inventory_item_price");
+    public By productDiv = By.className("inventory_item");
+    public By menuButton = By.id("react-burger-menu-btn");
+    public By productImage = By.xpath("//img[@alt='Sauce Labs Backpack']");
+    public By productTitle = By.xpath("//div[text()='Sauce Labs Backpack']");
+
     By dropDown = By.className("product_sort_container");
     By shoppingCart = By.className("shopping_cart_link");
 
