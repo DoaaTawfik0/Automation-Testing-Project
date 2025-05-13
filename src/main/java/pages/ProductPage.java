@@ -131,7 +131,7 @@ public class ProductPage extends PageBase {
         WaitForUrl(productsPageUrl);
     }
 
-    public void AddTwoProductsAndGoToCheckout() {
+    public void AddTwoProductsToCart() {
         AddProductToCartById(0);
         AddProductToCartById(1);
     }
