@@ -1,0 +1,38 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Automation Test Suite">
+
+    <!-- Global Parameters -->
+    <parameter name="browser" value="edge"/>
+    <parameter name="implicitWait" value="10"/>
+    <parameter name="explicitWait" value="20"/>
+    <parameter name="baseUrl" value="https://www.saucedemo.com/v1/"/>
+
+    <!-- Login Functionality Tests -->
+    <test name="Login Tests">
+        <classes>
+            <class name="tests.LoginPageTest"/>
+        </classes>
+    </test>
+
+    <!-- Product Functionality Tests -->
+    <test name="Product Tests">
+        <classes>
+            <class name="tests.ProductPageTest"/>
+        </classes>
+    </test>
+
+    <!-- Cart Functionality Tests -->
+    <test name="Cart Tests">
+        <classes>
+            <class name="tests.CartPageTest"/>
+        </classes>
+    </test>
+
+    <!-- Checkout Functionality Tests -->
+    <test name="Checkout Tests">
+        <classes>
+            <class name="tests.CheckOutPageTest"/>
+        </classes>
+    </test>
+
+</suite>
