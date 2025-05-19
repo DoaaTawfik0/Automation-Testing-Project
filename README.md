@@ -26,7 +26,6 @@ Automation-Testing-Project/
 │   └── constants/      # Constant values used across tests
 ├── src/test/java/
 │   ├── tests/          # Test classes
-│   └── listeners/      # TestNG listeners
 ├── src/test/resources/
 │   ├── testdata/       # Test data files
 │   └── config.properties # Configuration file
@@ -80,3 +79,7 @@ Edit `src/test/resources/config.properties` to configure:
 4. Implemented proper logging mechanism
 5. Used WebDriverManager for automated driver management
 6. Followed consistent naming conventions
+
+## Presentation 
+[Automation_Testing.pdf](https://github.com/user-attachments/files/20281743/Automation_Testing.pdf)
+
