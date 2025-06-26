@@ -1,5 +1,4 @@
 # Automation Testing Project
-Graduation Project for DEPI 
 
 ## Overview
 This project is an automated testing framework designed to validate web applications using Selenium WebDriver with Java. It follows the Page Object Model (POM) design pattern for better maintainability and scalability.
